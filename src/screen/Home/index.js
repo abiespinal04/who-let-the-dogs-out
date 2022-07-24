@@ -10,6 +10,8 @@ import {
   ActivityIndicator,
   TextInput,
 } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+
 import {fetchAllDogs} from '../../api/dog';
 import {navigate} from '../../navigators/utils';
 import SubBreed from './SubBreed';
@@ -48,6 +50,21 @@ const Home = () => {
     }
   };
 
+  const handleCameraAccess = async () => {
+    try {
+      // This does not work on simulator. Need to use real device for iOS.
+      const cameraAccess = await ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
+      });
+
+      console.log(cameraAccess);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSearch = value => {
     if (!dogs) return;
 
@@ -69,6 +86,7 @@ const Home = () => {
         style={styles.searchBox}
       />
       <FlatList
+        // scrollEnabled={dogs?.length || searchedDogs?.length}
         style={styles.container}
         ListEmptyComponent={
           <View style={styles.listEmptyContainer}>
@@ -107,6 +125,9 @@ const Home = () => {
           );
         }}
       />
+      <TouchableOpacity onPress={handleCameraAccess} style={styles.addButton}>
+        <Text style={styles.addButtonText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -114,6 +135,16 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 50,
+    height: 50,
+    backgroundColor: 'black',
+    borderRadius: 100,
+  },
+  addButtonText: {fontSize: 40, color: 'white', alignSelf: 'center'},
   mainContainer: {height: '100%'},
   container: {backgroundColor: 'white'},
   mainBreedButton: {
