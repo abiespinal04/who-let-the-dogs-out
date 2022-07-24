@@ -1,15 +1,10 @@
+import axios from 'axios';
+
 export const fetchAllDogs = async () => {
   try {
-    const res = await fetch('https://dog.ceo/api/breeds/list/all', {
-      method: 'GET',
-    });
+    const {data} = await axios.get('https://dog.ceo/api/breeds/list/all');
 
-    if (res.status !== 200) {
-      throw 'Sorry, something went wrong!';
-    }
-
-    const jRes = await res.json();
-    return jRes?.message;
+    return data?.message;
   } catch (error) {
     throw error;
   }
@@ -17,16 +12,9 @@ export const fetchAllDogs = async () => {
 
 export const getDogBreedImages = async breed => {
   try {
-    const res = await fetch(`https://dog.ceo/api/breed/${breed}/images`, {
-      method: 'GET',
-    });
+    const {data} = await axios.get(`https://dog.ceo/api/breed/${breed}/images`);
 
-    if (res.status !== 200) {
-      throw 'Sorry, something went wrong!';
-    }
-
-    const jRes = await res.json();
-    return jRes?.message;
+    return data?.message;
   } catch (error) {
     throw error;
   }
@@ -34,19 +22,11 @@ export const getDogBreedImages = async breed => {
 
 export const getDogSubBreedImages = async (breed, subBreed) => {
   try {
-    const res = await fetch(
+    const {data} = await axios.get(
       `https://dog.ceo/api/breed/${breed}/${subBreed}/images`,
-      {
-        method: 'GET',
-      },
     );
 
-    if (res.status !== 200) {
-      throw 'Sorry, something went wrong!';
-    }
-
-    const jRes = await res.json();
-    return jRes?.message;
+    return data?.message;
   } catch (error) {
     throw error;
   }

@@ -62,7 +62,7 @@ const Home = () => {
   };
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <TextInput
         onChangeText={handleSearch}
         placeholder="Search breed"
@@ -79,7 +79,7 @@ const Home = () => {
                 onPress={handleFetchDogs}
                 style={styles.fetchDogsButton}>
                 <Text style={styles.fetchDogsButtonText}>
-                  Who Let the Dogs Out?
+                  Who Let The Dogs Out?
                 </Text>
               </TouchableOpacity>
             )}
@@ -89,11 +89,18 @@ const Home = () => {
         data={searchedDogs?.length ? searchedDogs : dogs}
         renderItem={({item, index}) => {
           return (
-            <View key={'unique_key_' + index} style={styles.breedContainer}>
+            <View
+              testID={`dog-breed-container-${index}`}
+              key={'unique_key_' + index}
+              style={styles.breedContainer}>
               <TouchableOpacity
                 onPress={() => navigate('DogDetails', {breed: item[0]})}
                 style={styles.mainBreedButton}>
-                <Text style={styles.breedText}>{item[0]}</Text>
+                <Text
+                  testID={`dog-breed-text-${index}`}
+                  style={styles.breedText}>
+                  {item[0]}
+                </Text>
               </TouchableOpacity>
               <SubBreed breed={item[0]} subBreed={item[1]} />
             </View>
@@ -107,6 +114,7 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  mainContainer: {height: '100%'},
   container: {backgroundColor: 'white'},
   mainBreedButton: {
     alignItems: 'center',
