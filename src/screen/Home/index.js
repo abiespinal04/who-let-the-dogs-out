@@ -13,6 +13,7 @@ import {
 import ImagePicker from 'react-native-image-crop-picker';
 
 import {fetchAllDogs} from '../../api/dog';
+import AddPhoto from '../../components/AddPhoto';
 import {navigate} from '../../navigators/utils';
 import SubBreed from './SubBreed';
 
@@ -125,9 +126,7 @@ const Home = () => {
           );
         }}
       />
-      <TouchableOpacity onPress={handleCameraAccess} style={styles.addButton}>
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
+      <AddPhoto handleCameraAccess={handleCameraAccess} />
     </View>
   );
 };
@@ -135,16 +134,6 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  addButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 50,
-    height: 50,
-    backgroundColor: 'black',
-    borderRadius: 100,
-  },
-  addButtonText: {fontSize: 40, color: 'white', alignSelf: 'center'},
   mainContainer: {height: '100%'},
   container: {backgroundColor: 'white'},
   mainBreedButton: {
